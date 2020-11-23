@@ -12,7 +12,7 @@
             margin: 40;
             background-color: #230cf5;
             text-align: center;
-            
+
         }
 
         .jumbotron {
@@ -22,6 +22,7 @@
             height: 100%;
             color: #F44336;
         }
+        
     </style>
 
 </head>
@@ -39,24 +40,52 @@
             </div>
         </div>
 
-        <div class="row">
-            <span style="font-size: 3em; color: Tomato;">
-                <i class="fas fa-heart" onclick=""></i>
-            </span>
-        </div>
 
-        <div class="row">
-            <div class="col-3">
-                <button id="marcador" class="btn btn-block btn-primary">0</button>
+
+        <div id=niveles class="row">
+            <div class="col-4">
+                <button id="Nivel20" class="btn btn-block btn-primary" onclick="PantallaNiveles(20)">Nivel 20</button>
             </div>
-            <div class="col-9">
-                <button id="castellano" class="btn btn-block btn-danger">Español</button>
+            <div class="col-4">
+                <button id="Nivel40" class="btn btn-block btn-primary" onclick="PantallaNiveles(40)">Nivel 40</button>
             </div>
+            <div class="col-4">
+                <button id="Nivel60" class="btn btn-block btn-primary" onclick="PantallaNiveles(60)">Nivel 60</button>
+            </div>
+
+            <div class="col-4">
+                <button id="Nivel100" class="btn btn-block btn-primary" onclick="PantallaNiveles(100)">Nivel
+                    100</button>
+            </div>
+            <div class="col-4">
+                <button id="Nivel120" class="btn btn-block btn-primary" onclick="PantallaNiveles(120)">Nivel
+                    120</button>
+            </div>
+            <div class="col-4">
+                <button id="Nivel140" class="btn btn-block btn-primary" onclick="PantallaNiveles(140)">Nivel
+                    140</button>
+            </div>
+
         </div>
+        <br>
 
 
     </div>
-
+    <div id="marcadorCastellano">
+        <p id="nivelSelec" style="font-size: 1.5rem; line-height:0.5; color: rgb(235, 31, 31);"> </p>
+        <div class="row">
+            <div id="corazones" class="col"></div>
+            
+        </div>
+    
+    <div class="row">
+        <div class="col-3">
+            <button id="marcador" class="btn btn-block btn-primary">0</button>
+        </div>
+        <div class="col-9">
+            <button id="castellano" class="btn btn-block btn-danger">Español</button>
+        </div>
+    </div>
 
     <br>
     <div class="row">
@@ -77,49 +106,35 @@
 
     </div>
     <br>
-    <!-- <div id = niveles class="row">
-            <div class="col-4">
-                <button id="Nivel10" class="btn btn-block btn-primary">Nivel 10</button>
-            </div>
-            <div class="col-4">
-                <button id="Nivel20" class="btn btn-block btn-primary">Nivel 20</button>
-            </div>
-            <div class="col-4">
-                <button id="Nivel30" class="btn btn-block btn-primary">Nivel 30</button>
-            </div>
-        
-            <div class="col-4">
-                <button id="Nivel40" class="btn btn-block btn-primary">Nivel 40</button>
-            </div>
-            <div class="col-4">
-                <button id="Nivel50" class="btn btn-block btn-primary">Nivel 50</button>
-            </div>
-            <div class="col-4">
-                <button id="Nivel60" class="btn btn-block btn-primary">Nivel 60</button>
-            </div>
-            
-        </div> -->
     <div class="row">
         <div class="col-2">
 
         </div>
         <div class="col-8">
-        <button id="botonniveles" class="btn btn-info" style="align-items: center;" href="niveles.html">Choose a
-            level</button>
+            <button id="botonniveles" class="btn btn-danger" style="align-items: center;"
+                onClick="MostrarNiveles()">Choose a
+                level</a></button>
         </div>
         <div class="col-2">
 
         </div>
     </div>
     </div>
-    </div>
 
+    </div>
+    <script src="https://kit.fontawesome.com/2858d23eb0.js" crossorigin="anonymous"></script>
     <script src="js/listaVerbos.js"> </script>
     <script>
+        document.getElementById("marcadorCastellano").style.display = "none";
+        //document.getElementById("corazones").style.display = "none";
+
         var tiempoAAdivinar = 0;
         var verboElegido = 0;
         var jugando = 0;
         var marcador = 0;
+        var numVerbosElegir = 0;
+        var corazon = 0;
+
 
         function comprueba() {
             if (jugando == 0) {
@@ -135,6 +150,8 @@
                     marcador++;//si el verbo escrito es correcto un+ al marcador
                     document.getElementById('botonresultado').classList.add('btn-success');
                     document.getElementById('botonresultado').innerText = "CORRECT!";
+                    // document.getElementById("corazones").style.display = "block";
+                    pintarCorazones();
                 } else {
                     marcador--;
                     document.getElementById('botonresultado').classList.add('btn-danger');
@@ -179,9 +196,36 @@
                     '<button class="btn btn-block btn-secondary">' + verbos[verboElegido][2] + '</button>';
             }
 
+
         }
 
         eligeVerbo();
+        
+
+        function MostrarNiveles() {
+            document.getElementById("niveles").style.display = "flex";
+            document.getElementById("marcadorCastellano").style.display = "none";
+
+
+        }
+
+        function PantallaNiveles(numVerbos) {
+            numVerbosElegir = numVerbos;
+            console.log(numVerbosElegir);
+            document.getElementById("niveles").style.display = "none";
+            document.getElementById("marcadorCastellano").style.display = "block";
+            document.getElementById("nivelSelec").innerHTML = numVerbosElegir + " verbs";
+        }
+        function pintarCorazones() {
+            document.getElementById("corazones").innerHTML = "";
+            for (var i=0; i<marcador; i++){
+                document.getElementById("corazones").innerHTML = document.getElementById("corazones").innerHTML + '<i  class="far fa-2x fa-heart"></i>';
+
+            }
+            
+            
+        }
+
 
 
     </script>
